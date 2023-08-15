@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react"
 import Swal from "sweetalert2";
 import { v4 as uuid } from "uuid";
 import Header from "./layout/Header";
 import { Link, useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 
 export default function AddNotesComp() {
@@ -11,6 +13,7 @@ export default function AddNotesComp() {
   const [titleErr, setTitleErr] = useState(false)
   const [catErr, setCatErr] = useState(false)
   const [noteErr, setNoteErr] = useState(false)
+  const [selected, setSelected] = useState(null)
 
   const navigate = useNavigate()
 
@@ -29,9 +32,11 @@ export default function AddNotesComp() {
 
     if (!note.title) setTitleErr(true)
     if (!note.note) setNoteErr(true)
-    if (!note.category || note.category === "category") setCatErr(true)
+    if (!selected || selected.length < 1) setCatErr(true)
 
-    if (!note.title || !note.note || !note.category) {
+
+    if (!note.title || !note.note || !selected) {
+      console.log("returning")
       return;
     }
 
@@ -39,17 +44,17 @@ export default function AddNotesComp() {
     const newNote = {
       id: uuid(),
       ...note,
+      category: selected,
       createdAt: Date.now(),
       updatedAt: Date.now()
     }
+    console.log(newNote)
 
     const fetchAllnotes = JSON.parse(localStorage.getItem("boxedNotes"))
 
     const altNotes = [...fetchAllnotes, newNote]
     // setAllNoted(altNotes)
     console.log(altNotes)
-
-
 
     localStorage.setItem("boxedNotes", JSON.stringify(altNotes))
     Swal.fire({
@@ -63,13 +68,22 @@ export default function AddNotesComp() {
   }
 
 
+  const options = [
+    { value: "Work", label: "Work" },
+    { value: "Class", label: "Class" },
+    { value: "Study", label: "Study" },
+    { value: "Leisure", label: "Leisure" },
+    { value: "Others", label: "Others" },
+  ]
+
+  // console.log(selected)
   return (
     <div className="bg-purple-300/40 min-h-screen">
       <Header />
       <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 ">
         <h2 className="font-erode mb-4 font-semibold text-xl md:text-2xl lg:text-3xl ">Add New Note</h2>
         <div className="flex items-center space-x-4 justify-between">
-          <div className="flex flex-col mb-2 w-2/3">
+          <div className="flex flex-col mb-2 w-1/2">
             <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
               Title
             </label>
@@ -81,21 +95,20 @@ export default function AddNotesComp() {
             {titleErr && <p className="font-erode font-medium text-xs text-red-500">title cannot be empty</p>}
           </div>
 
-          <div className="flex flex-col mb-2 w-1/3">
+          <div className="flex flex-col mb-2 w-1/2">
             <label htmlFor="category" className="font-erode font-semibold text-sm md:text-base">
               Category
             </label>
-            <div className="gradient-bg p-[1px] rounded-md">
-              <select
-                name="category"
-                onChange={e => { handleChange(e) }}
-                className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full">
-                <option value={null} className="font-erode font-medium text-xs md:text-sm">category</option>
-                <option value='Work' className="font-erode font-medium text-xs md:text-sm">Work</option>
-                <option value='Leisure' className="font-erode font-medium text-xs md:text-sm">Leisure</option>
-                <option value='Others' className="font-erode font-medium text-xs md:text-sm">Others</option>
-              </select>
-            </div>
+            {/* <div className="gradient-bg p-[1px] rounded-md"> */}
+
+            <Select
+              options={options}
+              defaultValue={selected}
+              onChange={setSelected}
+              isMulti
+              className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full"
+            />
+            {/* </div> */}
             {catErr && <p className="font-erode font-medium text-xs text-red-500">Select a category</p>}
           </div>
         </div>

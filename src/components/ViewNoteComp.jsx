@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Header from "./layout/Header"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
+import Select from "react-select"
 
 
 export default function ViewNoteComp() {
@@ -12,6 +13,7 @@ export default function ViewNoteComp() {
   const [allNotes, setAllNotes] = useState([])
   const [note, setNote] = useState({})
 
+  const [selected, setSelected] = useState(null)
 
   const param = useParams()
   const navigate = useNavigate()
@@ -43,9 +45,10 @@ export default function ViewNoteComp() {
     e.preventDefault()
     if (!note.title) setTitleErr(true)
     if (!note.note) setNoteErr(true)
-    if (!note.category) setCatErr(true)
+    if (!selected || selected.length < 1) setCatErr(true)
 
-    if (!note.title || !note.note || !note.category) {
+
+    if (!note.title || !note.note || !selected) {
       return;
     }
 
@@ -54,7 +57,7 @@ export default function ViewNoteComp() {
     const updatedNotes = allNotes.map((item) => {
       if (item.id === param.id) {
         // console.log(item)
-        return { ...item, ...note, updatedAt: Date.now() }
+        return { ...item, ...note, category: selected, updatedAt: Date.now() }
         // console.log(item)
       }
       return item
@@ -101,7 +104,19 @@ export default function ViewNoteComp() {
       }
     })
   }
+  const renderCategories = note?.category?.map((item) => {
+    console.log(item)
+    return <span className="ml-2"
+      key={item.value}>{item.value}</span>
+  })
 
+  const options = [
+    { value: "Work", label: "Work" },
+    { value: "Class", label: "Class" },
+    { value: "Study", label: "Study" },
+    { value: "Leisure", label: "Leisure" },
+    { value: "Others", label: "Others" },
+  ]
   return (
     <div className="bg-purple-300/40 min-h-screen">
       <Header />
@@ -115,7 +130,7 @@ export default function ViewNoteComp() {
             className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Edit</button>}
         </div>
         <div className="flex items-center space-x-4 justify-between">
-          <div className="flex flex-col mb-2 w-2/3">
+          <div className="flex flex-col mb-2 w-1/2">
             <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
               Title
             </label>
@@ -132,22 +147,21 @@ export default function ViewNoteComp() {
             {titleErr && <p className="font-erode font-medium text-xs text-red-500">title cannot be empty</p>}
           </div>
 
-          <div className="flex flex-col mb-2 w-1/3">
+          <div className="flex flex-col mb-2 w-1/2">
             <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
               Category
             </label>
-            <div className="gradient-bg p-[1px] rounded-md ">
+            <div className=" ">
               {editMode ? (
-                <select
-                  onChange={handleChange}
-                  value={note.category}
-                  className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full" >
-                  <option className="font-erode font-medium text-xs md:text-sm">Work</option>
-                  <option className="font-erode font-medium text-xs md:text-sm">Leisure</option>
-                  <option className="font-erode font-medium text-xs md:text-sm">Others</option>
-                </select>)
+                <Select
+                  options={options}
+                  defaultValue={note?.category}
+                  onChange={setSelected}
+                  isMulti
+                  className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full"
+                />)
                 : <p className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base bg-white">
-                  {note.category}
+                  {renderCategories}
                 </p>
               }
             </div>

@@ -19,6 +19,17 @@ export default function Home() {
       {/* Hero */}
 
       <Header />
+
+      <div className="">
+        {/* search by tag */}
+        <div>
+          <select>
+
+          </select>
+        </div>
+        {/* sort be created/updated date */}
+        <div></div>
+      </div>
       <div className=" px-2 py-4 md:px-4 w-full md:w-10/12 mx-auto grid gap-4 grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
 
         {allNotes.length ? (allNotes.map((note) => {

@@ -7,7 +7,11 @@ export default function ViewNoteCard(props) {
 
   const { title, note, category, updatedAt, id, } = props
 
+  console.log(category)
 
+  const renderCategories = category.map((item) => {
+    return <span className="ml-2" key={item.value}>{item.value}</span>
+  })
 
   return (
     <Link to={`/note/${id}`}>
@@ -17,11 +21,9 @@ export default function ViewNoteCard(props) {
         <div
           className=" rounded-lg bg-white">
           {/* title */}
-          <div className="flex items-center justify-between p-2 md:p-3">
+          <div className="flex flex-col justify-between p-2 md:p-3">
 
-            <h3 className="font-erode font-semibold italic line-clamp-1">{title}</h3>
-
-            <h3 className="font-erode font-semibold italic text-gray-600 border-l border-l-slate-500 pl-2">cat:<span className="ml-2">{category}</span></h3>
+            <h3 className="font-erode font-semibold italic line-clamp-1">title: {title}</h3>
           </div>
 
           <div className="p-2 border-y border-y-slate-400 h-20">
@@ -30,6 +32,7 @@ export default function ViewNoteCard(props) {
 
           <div className="flex items-center justify-between p-2">
             <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300">{moment(updatedAt).fromNow()}</p>
+            <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300">categories:{renderCategories}</p>
             {/* <div
             ref={actionRef}
             className=" flex flex-col relative w-fit">
