@@ -24,14 +24,14 @@ export default function Header() {
               <div className='gradient-bg p-[1px] rounded-md'>
                 <Link to='/add-note'
                   className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                  <span className="font-erode font-semibold">Add <span className=' hidden md:inline-block'> New Note</span></span> </Link>
+                  <p className="font-erode font-semibold text-xl md:text-2xl lg:text-3xl">Add <span className=' hidden md:inline-block'> New Note</span></p> </Link>
               </div>
             </div>
           ) : (
             <div className='gradient-bg p-[1px] rounded-md'>
               <Link to='/add-note'
                 className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                <span className="font-erode font-semibold hidden md:inline-block">Add New Note</span> </Link>
+                <p className="font-erode font-semibold text-xl md:text-2xl lg:text-3xl">Add <span className=' hidden md:inline-block'> New Note</span></p> </Link>
             </div>
           )
           }
