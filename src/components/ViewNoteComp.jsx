@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react"
+import Header from "./layout/Header"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import Swal from "sweetalert2"
 
 
-export default function ViewNoteComp({ noteId, setModalState }) {
+export default function ViewNoteComp() {
   const [editMode, setEditMode] = useState(false)
   const [titleErr, setTitleErr] = useState(false)
   const [catErr, setCatErr] = useState(false)
   const [noteErr, setNoteErr] = useState(false)
+  const [allNotes, setAllNotes] = useState([])
   const [note, setNote] = useState({})
-  console.log(noteId)
+
+
+  const param = useParams()
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("boxedNotes")) || [];
-
-    const note = data.find((note) => note.id === noteId)
+    setAllNotes(data)
+    const note = data.find((note) => note.id === param.id)
     setNote(note)
   }, [])
+
+  console.log(note)
 
 
   const handleChange = (e) => {
@@ -30,7 +40,7 @@ export default function ViewNoteComp({ noteId, setModalState }) {
 
 
   const handleSubmit = (e) => {
-
+    e.preventDefault()
     if (!note.title) setTitleErr(true)
     if (!note.note) setNoteErr(true)
     if (!note.category) setCatErr(true)
@@ -40,67 +50,153 @@ export default function ViewNoteComp({ noteId, setModalState }) {
     }
 
     console.log(note)
+
+    const updatedNotes = allNotes.map((item) => {
+      if (item.id === param.id) {
+        // console.log(item)
+        return { ...item, ...note, updatedAt: Date.now() }
+        // console.log(item)
+      }
+      return item
+    })
+
+    console.log(updatedNotes)
+
+    localStorage.setItem("boxedNotes", JSON.stringify(updatedNotes))
+    Swal.fire({
+      title: 'Note Updated Successfully!',
+      timer: 2000,
+      icon: "success"
+    }).then((result) => {
+      navigate('/')
+    })
+  }
+
+
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Delete cannot be undone!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete note!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        const updatedNotes = allNotes.filter((item) => item.id !== param.id)
+
+
+        localStorage.setItem("boxedNotes", JSON.stringify(updatedNotes))
+        Swal.fire({
+          title: 'Note Deleted Successfully!',
+          timer: 2000,
+          icon: "success"
+        }).then((result) => {
+          navigate('/')
+        })
+
+      }
+    })
   }
 
   return (
+    <div className="bg-purple-300/40 min-h-screen">
+      <Header />
+      <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 ">
 
-    <div className="h-fit w-full  mx-auto mt-4 bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-4">
-      <div className="flex items-center space-x-4 justify-between">
-        <div className="flex flex-col mb-2 w-2/3">
-          <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
-            Title
-          </label>
-          {editMode ? (
-            <input
-              onChange={handleChange}
-              type="text" name="title" value={note.title || ""} className="p-2 md:p-3 rounded-md " min={2} />
-          )
-            : (<p className="p-2 md:p-3 rounded-md bg-white">{note.title}</p>)}
+        <div className="flex items-center justify-between">
+          <h2 className="font-erode mb-4 font-semibold text-xl md:text-2xl lg:text-3xl ">View Note</h2>
+
+          {!editMode && <button
+            onClick={() => setEditMode(true)}
+            className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Edit</button>}
         </div>
+        <div className="flex items-center space-x-4 justify-between">
+          <div className="flex flex-col mb-2 w-2/3">
+            <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
+              Title
+            </label>
+            <div className="gradient-bg p-[1px] rounded-md">
+              {editMode ? (
+                <input
+                  onChange={handleChange}
+                  type="text" name="title" value={note.title || ""} className="p-2 md:p-3 rounded-md w-full" min={2} />
+              )
+                : (<p className="p-2 md:p-3 rounded-md bg-white">
+                  {note.title}
+                </p>)}
+            </div>
+            {titleErr && <p className="font-erode font-medium text-xs text-red-500">title cannot be empty</p>}
+          </div>
 
-        <div className="flex flex-col mb-2 w-1/3">
-          <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
-            Category
+          <div className="flex flex-col mb-2 w-1/3">
+            <label htmlFor="title" className="font-erode font-semibold text-sm md:text-base">
+              Category
+            </label>
+            <div className="gradient-bg p-[1px] rounded-md ">
+              {editMode ? (
+                <select
+                  onChange={handleChange}
+                  value={note.category}
+                  className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full" >
+                  <option className="font-erode font-medium text-xs md:text-sm">Work</option>
+                  <option className="font-erode font-medium text-xs md:text-sm">Leisure</option>
+                  <option className="font-erode font-medium text-xs md:text-sm">Others</option>
+                </select>)
+                : <p className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base bg-white">
+                  {note.category}
+                </p>
+              }
+            </div>
+            {catErr && <p className="font-erode font-medium text-xs text-red-500">Select a category</p>}
+          </div>
+        </div>
+        <div className="flex flex-col mb-1 flex-1">
+          <label htmlFor="note" className="font-erode font-semibold text-sm md:text-base">
+            Note
           </label>
-
-          {editMode ? (
-            <select
-              onChange={handleChange}
-              className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base" >
-              <option className="font-erode font-medium text-xs md:text-sm">Work</option>
-              <option className="font-erode font-medium text-xs md:text-sm">Leisure</option>
-              <option className="font-erode font-medium text-xs md:text-sm">Others</option>
-            </select>)
-            : <p className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base bg-white">{note.category}</p>
+          <div className="gradient-bg p-[1px] rounded-md h-full">
+            {editMode ? (
+              <textarea
+                onChange={handleChange}
+                name="note" className="p-2 md:p-3 h-full w-full rounded-md resize-none" value={note.note}></textarea>)
+              : (<p className="p-2 md:p-3 h-full overflow-y-scroll  rounded-md resize-none bg-white">
+                {note.note}
+              </p>)
+            }
+          </div>
+          {noteErr && <p className="font-erode font-medium text-xs text-red-500">note cannot be empty</p>}
+        </div>
+        <div className="flex items-center justify-between mt-4">
+          {
+            editMode ? (
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Save</button>
+            ) : (<div></div>)
           }
+
+          {editMode ?
+            (<button
+              onClick={() => setEditMode(false)}
+              className="font-erode px-8 py-2 border border-indigo-400 rounded-md">Cancel</button>)
+            : (
+              <div className="flex items-center justify-between space-x-2 md:space-x-3 lg:space-x-4">
+                <Link to='/'
+                  className="font-erode px-8 py-2 border border-indigo-400 rounded-md">Close</Link>
+
+                <button
+                  onClick={handleDelete}
+                  className="font-erode px-8 py-2 border border-red-500 rounded-md">Delete</button>
+              </div>
+            )
+          }
+
         </div>
-      </div>
-      <div className="flex flex-col mb-2">
-        <label htmlFor="note" className="font-erode font-semibold text-sm md:text-base">
-          Note
-        </label>
-        {editMode ? (
-          <textarea
-            onChange={handleChange}
-            name="note" className="p-2 md:p-3 h-20 md:h-20  rounded-md resize-none" value={note.note}></textarea>)
-          : (<p className="p-2 md:p-3 h-20 overflow-y-scroll md:h-20  rounded-md resize-none bg-white">{note.note}</p>)
-        }
-      </div>
-      <div className="flex items-center justify-between mt-4">
-        {
-          editMode ? (
-            <button className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Save</button>
-          ) : (
-            <button
-              onClick={() => setEditMode(true)}
-              className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Edit</button>
-          )
-        }
-        <button
-          onClick={() => setModalState(false)}
-          className="font-erode px-8 py-2 border border-indigo-400 rounded-md">Cancel</button>
       </div>
     </div>
-
   )
 }
