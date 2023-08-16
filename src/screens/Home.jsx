@@ -28,8 +28,10 @@ export default function Home() {
         }))
 
       setRender(filteredNotes)
-      setFilter("")
+      // setFilter("")
       console.log(filter)
+    } else {
+      setRender(allNotes)
     }
   }
 
