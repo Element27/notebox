@@ -19,7 +19,7 @@ export default function Header() {
           {location.pathname !== '/' ? (
             <div className='flex space-x-2 md:space-x-3 lg:space-x-4'>
               <div className='gradient-bg p-[1px] rounded-md'>
-                <Link to='/' className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md font-erode font-semibold ">Home</Link>
+                <Link to='/' className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md  "> <p className='font-erode font-semibold text-xl md:text-2xl lg:text-3xl'>Home</p></Link>
               </div>
               <div className='gradient-bg p-[1px] rounded-md'>
                 <Link to='/add-note'

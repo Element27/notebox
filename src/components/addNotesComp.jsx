@@ -50,8 +50,9 @@ export default function AddNotesComp() {
     }
     console.log(newNote)
 
-    const fetchAllnotes = JSON.parse(localStorage.getItem("boxedNotes"))
-
+    console.log("parsing json data")
+    const fetchAllnotes = JSON.parse(localStorage.getItem("boxedNotes")) || []
+    console.log("parsed json data", fetchAllnotes)
     const altNotes = [...fetchAllnotes, newNote]
     // setAllNoted(altNotes)
     console.log(altNotes)

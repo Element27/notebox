@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import Header from "./layout/Header"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -160,7 +161,7 @@ export default function ViewNoteComp() {
                   isMulti
                   className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base w-full"
                 />)
-                : <p className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base bg-white">
+                : <p className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base bg-white line-clamp-1">
                   {renderCategories}
                 </p>
               }

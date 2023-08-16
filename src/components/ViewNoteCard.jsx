@@ -7,7 +7,7 @@ export default function ViewNoteCard(props) {
 
   const { title, note, category, updatedAt, id, } = props
 
-  console.log(category)
+  // console.log(category)
 
   const renderCategories = category.map((item) => {
     return <span className="ml-2" key={item.value}>{item.value}</span>
@@ -31,25 +31,8 @@ export default function ViewNoteCard(props) {
           </div>
 
           <div className="flex items-center justify-between p-2">
-            <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300">{moment(updatedAt).fromNow()}</p>
-            <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300">categories:{renderCategories}</p>
-            {/* <div
-            ref={actionRef}
-            className=" flex flex-col relative w-fit">
-            <div
-              onClick={() => setshowAction(!showAction)}
-              className=" flex items-center gap-x-2 text-slate-300 ">
-              <IconMoreVerticalAlt />
-              <h4 className="font-erode">Action</h4>
-            </div>
-            {showAction && (<div className="absolute bottom-full bg-white w-full">
-              <p
-                onClick={handleViewModal}
-                className="border-b border-b-indigo-400 font-erode font-medium w-full">View</p>
-              <p className="border-b border-b-indigo-400 font-erode font-medium w-full">Edit</p>
-              <p className="border-b border-b-indigo-400 font-erode font-medium w-full">Delete</p>
-            </div>)}
-          </div> */}
+            <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300 w-2/5">{moment(updatedAt).fromNow()}</p>
+            <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300 line-clamp-1 w-3/5">categories:{renderCategories}</p>
 
           </div>
         </div>
