@@ -4,8 +4,8 @@ import Header from "../components/layout/Header"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
 import Select from "react-select"
-import { options } from "../const/selectUtils"
-import { HOME } from "../const/urlConst"
+import { options } from "../constants/selectUtils"
+import { HOME } from "../constants/urlConst"
 
 
 export default function ViewNote() {

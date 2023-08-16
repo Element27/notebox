@@ -5,8 +5,8 @@ import { v4 as uuid } from "uuid";
 import Header from "../components/layout/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { options } from "../const/selectUtils";
-import { HOME } from "../const/urlConst";
+import { options } from "../constants/selectUtils";
+import { HOME } from "../constants/urlConst";
 
 
 export default function AddNotes() {

@@ -1,7 +1,7 @@
 
 import { Link, useLocation } from 'react-router-dom'
 import { IconAddOutline, IconBoxArchive, IconHome } from '../IconComponent';
-import { ADDNOTE, HOME } from '../../const/urlConst';
+import { ADDNOTE, HOME } from '../../constants/urlConst';
 
 export default function Header() {
 

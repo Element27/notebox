@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import Header from "../components/layout/Header";
 import ViewNoteCard from "../components/ViewNoteCard";
 import { IconFilter, IconSortCalendarAscending, IconSortCalendarDescending } from "../components/IconComponent";
-import { options } from "../const/selectUtils";
+import { options } from "../constants/selectUtils";
 import { Link } from "react-router-dom";
-import { ADDNOTE } from "../const/urlConst";
+import { ADDNOTE } from "../constants/urlConst";
 
 export default function Home() {
   const [allNotes, setAllNoted] = useState([])

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./screens/Home"
 import AddNotes from "./screens/AddNotes"
 import ViewNote from "./screens/ViewNote"
-import { ADDNOTE, HOME, VIEWNOTE } from "./const/urlConst"
+import { ADDNOTE, HOME, VIEWNOTE } from "./constants/urlConst"
 
 function App() {
 
