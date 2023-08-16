@@ -7,7 +7,6 @@ export default function ViewNoteCard(props) {
 
   const { title, note, category, updatedAt, id, } = props
 
-  // console.log(category)
 
   const renderCategories = category.map((item) => {
     return <span className="ml-2" key={item.value}>{item.value}</span>
@@ -16,8 +15,6 @@ export default function ViewNoteCard(props) {
   return (
     <Link to={`/note/${id}`}>
       <div className=" h-fit bg-gradient-to-bl from-pink-300 via-purple-300 to-indigo-400 p-[1px] rounded-lg">
-
-
         <div
           className=" rounded-lg bg-white">
           {/* title */}
@@ -33,7 +30,6 @@ export default function ViewNoteCard(props) {
           <div className="flex items-center justify-between p-2">
             <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300 w-2/5">{moment(updatedAt).fromNow()}</p>
             <p className="font-erode font-normal italic text-xs md:text-sm text-slate-300 line-clamp-1 w-3/5">categories:{renderCategories}</p>
-
           </div>
         </div>
       </div>

@@ -4,12 +4,7 @@ import { IconAddOutline, IconBoxArchive, IconHome } from '../IconComponent';
 
 export default function Header() {
 
-
-
   const location = useLocation();
-
-
-
 
   return (
     <div className="bg-gradient-to-bl from-pink-300 via-purple-300 to-indigo-400 w-full p-4 md:py-4 md:px-8">
@@ -26,8 +21,8 @@ export default function Header() {
               <Link to='/'>
                 <div className='gradient-bg p-[1px] rounded-md'>
                   <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md  ">
-                    <p className='font-erode font-semibold text-xl md:text-2xl lg:text-3xl flex items-center gap-x-2'>
-                      <IconHome className="text-xl md:text-2xl lg:text-3xl" />
+                    <p className='font-erode font-semibold text-based md:text-xl flex items-center gap-x-2'>
+                      <IconHome className="text-based md:text-xl" />
                       <span className='sm-hide'>Home</span></p>
                   </div>
                 </div>
@@ -36,7 +31,7 @@ export default function Header() {
               <Link to='/add-note'>
                 <div className='gradient-bg p-[1px] rounded-md'>
                   <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                    <p className="font-erode font-semibold text-xl md:text-2xl lg:text-3xl flex items-center gap-x-2">
+                    <p className="font-erode font-semibold text-based md:text-xl flex items-center gap-x-2">
                       <IconAddOutline />
                       <span className='sm-hide'> New Note</span></p>
                   </div>
@@ -48,7 +43,7 @@ export default function Header() {
               <Link to='/add-note'>
                 <div className='gradient-bg p-[1px] rounded-md'>
                   <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                    <p className="font-erode font-semibold text-xl md:text-2xl lg:text-3xl flex items-center gap-x-2">
+                    <p className="font-erode font-semibold text-based md:text-xl flex items-center gap-x-2">
                       <IconAddOutline />
                       <span className='sm-hide'> New Note</span></p>
                   </div>

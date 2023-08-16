@@ -5,6 +5,7 @@ import { v4 as uuid } from "uuid";
 import Header from "../components/layout/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { options } from "../const/selectUtils";
 
 
 export default function AddNotes() {
@@ -36,11 +37,9 @@ export default function AddNotes() {
 
 
     if (!note.title || !note.note || !selected) {
-      console.log("returning")
       return;
     }
 
-    console.log(note)
     const newNote = {
       id: uuid(),
       ...note,
@@ -48,14 +47,10 @@ export default function AddNotes() {
       createdAt: Date.now(),
       updatedAt: Date.now()
     }
-    console.log(newNote)
 
-    console.log("parsing json data")
     const fetchAllnotes = JSON.parse(localStorage.getItem("boxedNotes")) || []
-    console.log("parsed json data", fetchAllnotes)
     const altNotes = [...fetchAllnotes, newNote]
     // setAllNoted(altNotes)
-    console.log(altNotes)
 
     localStorage.setItem("boxedNotes", JSON.stringify(altNotes))
     Swal.fire({
@@ -69,15 +64,14 @@ export default function AddNotes() {
   }
 
 
-  const options = [
-    { value: "Work", label: "Work" },
-    { value: "Class", label: "Class" },
-    { value: "Study", label: "Study" },
-    { value: "Leisure", label: "Leisure" },
-    { value: "Others", label: "Others" },
-  ]
+  // const options = [
+  //   { value: "Work", label: "Work" },
+  //   { value: "Class", label: "Class" },
+  //   { value: "Study", label: "Study" },
+  //   { value: "Leisure", label: "Leisure" },
+  //   { value: "Others", label: "Others" },
+  // ]
 
-  // console.log(selected)
   return (
     <div className="bg-purple-300/40 min-h-screen pb-4">
       <Header />

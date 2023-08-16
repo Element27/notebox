@@ -4,6 +4,7 @@ import Header from "../components/layout/Header"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
 import Select from "react-select"
+import { options } from "../const/selectUtils"
 
 
 export default function ViewNote() {
@@ -25,9 +26,8 @@ export default function ViewNote() {
     setAllNotes(data)
     const note = data.find((note) => note.id === param.id)
     setNote(note)
+    setSelected(note?.category)
   }, [])
-
-  console.log(note)
 
 
   const handleChange = (e) => {
@@ -53,18 +53,14 @@ export default function ViewNote() {
       return;
     }
 
-    console.log(note)
 
     const updatedNotes = allNotes.map((item) => {
       if (item.id === param.id) {
-        // console.log(item)
         return { ...item, ...note, category: selected, updatedAt: Date.now() }
-        // console.log(item)
       }
       return item
     })
 
-    console.log(updatedNotes)
 
     localStorage.setItem("boxedNotes", JSON.stringify(updatedNotes))
     Swal.fire({
@@ -106,18 +102,11 @@ export default function ViewNote() {
     })
   }
   const renderCategories = note?.category?.map((item) => {
-    console.log(item)
     return <span className="ml-2"
       key={item.value}>{item.value}</span>
   })
 
-  const options = [
-    { value: "Work", label: "Work" },
-    { value: "Class", label: "Class" },
-    { value: "Study", label: "Study" },
-    { value: "Leisure", label: "Leisure" },
-    { value: "Others", label: "Others" },
-  ]
+
   return (
     <div className="bg-purple-300/40 min-h-screen pb-4">
       <Header />
