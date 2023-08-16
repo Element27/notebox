@@ -2,12 +2,12 @@
 import { useState } from "react"
 import Swal from "sweetalert2";
 import { v4 as uuid } from "uuid";
-import Header from "./layout/Header";
+import Header from "../components/layout/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 
-export default function AddNotesComp() {
+export default function AddNotes() {
 
   const [note, setNote] = useState({})
   const [titleErr, setTitleErr] = useState(false)
@@ -79,9 +79,9 @@ export default function AddNotesComp() {
 
   // console.log(selected)
   return (
-    <div className="bg-purple-300/40 min-h-screen">
+    <div className="bg-purple-300/40 min-h-screen pb-4">
       <Header />
-      <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 ">
+      <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 px-4 md:px-6">
         <h2 className="font-erode mb-4 font-semibold text-xl md:text-2xl lg:text-3xl ">Add New Note</h2>
         <div className="flex items-center space-x-4 justify-between">
           <div className="flex flex-col mb-2 w-1/2">

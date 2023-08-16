@@ -1,7 +1,8 @@
-import AddNotesComp from "./components/addNotesComp"
+
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./screens/Home"
-import ViewNoteComp from "./components/ViewNoteComp"
+import AddNotes from "./screens/AddNotes"
+import ViewNote from "./screens/ViewNote"
 
 function App() {
 
@@ -11,8 +12,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/add-note" element={<AddNotesComp />} />
-        <Route path="/note/:id" element={<ViewNoteComp />} />
+        <Route path="/add-note" element={<AddNotes />} />
+        <Route path="/note/:id" element={<ViewNote />} />
       </Routes>
     </BrowserRouter>
   )

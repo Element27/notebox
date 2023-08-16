@@ -6,4 +6,8 @@
   .gradient-bg {
     @apply bg-gradient-to-bl from-pink-300 via-purple-300 to-indigo-400;
   }
+
+  .sm-hide {
+    @apply hidden md:inline-flex;
+  }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Header from "../components/layout/Header";
 import ViewNoteCard from "../components/ViewNoteCard";
+import { IconFilter, IconSortCalendarAscending, IconSortCalendarDescending } from "../components/IconComponent";
 
 export default function Home() {
   const [allNotes, setAllNoted] = useState([])
@@ -72,45 +73,42 @@ export default function Home() {
 
       <Header />
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between w-full my-4">
         {/* search by tag */}
-        <div className="gradient-bg p-[1px]">
-          <div className="bg-white">
-            <select onChange={(e) => setFilter(e.target.value)}
-              value={filter}
-              className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base mr-4">
-              <option value="" className="font-erode font-medium text-xs md:text-sm">Select category</option>
-              <option value='Work' className="font-erode font-medium text-xs md:text-sm">Work</option>
-              <option value='Class' className="font-erode font-medium text-xs md:text-sm">Class</option>
-              <option value='Study' className="font-erode font-medium text-xs md:text-sm">Study</option>
-              <option value='Leisure' className="font-erode font-medium text-xs md:text-sm">Leisure</option>
-              <option value='Others' className="font-erode font-medium text-xs md:text-sm">Others</option>
+        <div className="gradient-bg p-[1px] w-full">
+          <div className="bg-white flex items-center justify-between w-full py-2 px-4 gap-x-4">
+            <div className="flex items-center">
+              <select onChange={(e) => setFilter(e.target.value)}
+                value={filter}
+                className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base mr-4">
+                <option value="" className="font-erode font-medium text-xs md:text-sm">Add Tag</option>
+                <option value='Work' className="font-erode font-medium text-xs md:text-sm">Work</option>
+                <option value='Class' className="font-erode font-medium text-xs md:text-sm">Class</option>
+                <option value='Study' className="font-erode font-medium text-xs md:text-sm">Study</option>
+                <option value='Leisure' className="font-erode font-medium text-xs md:text-sm">Leisure</option>
+                <option value='Others' className="font-erode font-medium text-xs md:text-sm">Others</option>
 
-            </select>
-            {/* on small screen replace texts with icon  */}
-            <button className="font-erode px-8 py-2 border border-indigo-400 rounded-md text-xs md:text-sm lg:text-base" onClick={handleFilter}>filter</button>
+              </select>
+              {/* on small screen replace texts with icon  */}
+              <button className="font-erode px-6 lg:px-8 py-2 border border-indigo-400 rounded-md text-xs md:text-sm lg:text-base flex items-center gap-x-2" onClick={handleFilter}>
+                <IconFilter className="text-xs md:text-sm lg:text-base" />
+                <span className="sm-hide">filter</span>
+              </button>
+
+            </div>
+            {/* sort be created/updated date */}
+            <div>
+
+              <button onClick={showLatest} className="bg-indigo-400 font-erode px-6 md:px-8 py-2 rounded-md text-xs md:text-sm lg:text-base flex items-center gap-x-2">
+                <span className="sm-hide">{latest ? "recent" : "oldest"} First</span>
+                <span className="md:hidden">{latest ? <IconSortCalendarAscending /> : <IconSortCalendarDescending />}</span>
+              </button>
+            </div>
           </div>
         </div>
-        {/* sort be created/updated date */}
-        <div>
-          {/* <select
-            onChange={(e) => setLatest(e.target.value)}
-            value={latest}
-            className="p-2 md:p-3 rounded-md font-erode font-semibold text-sm md:text-base mr-4" disabled
-          >
-            <option
-              className="font-erode font-medium text-xs md:text-sm"
-              value={true}>latest</option>
-            <option
-              className="font-erode font-medium text-xs md:text-sm"
-              value={false}>earliest</option>
-          </select> */}
-          <button onClick={showLatest}>
-            Show <span>{latest ? "recent" : "older"}</span>
-          </button>
-        </div>
+
       </div>
-      <div className=" px-2 py-4 md:px-4 w-full md:w-10/12 mx-auto grid gap-4 grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
+      <div className=" px-4 py-4 md:px-6 w-full md:w-10/12 mx-auto grid gap-4 grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
 
         {renderNotes?.length ? (renderNotes?.map((note) => {
           {/* console.log(note) */ }

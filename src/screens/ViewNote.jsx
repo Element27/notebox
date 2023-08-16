@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
-import Header from "./layout/Header"
+import Header from "../components/layout/Header"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
 import Select from "react-select"
 
 
-export default function ViewNoteComp() {
+export default function ViewNote() {
   const [editMode, setEditMode] = useState(false)
   const [titleErr, setTitleErr] = useState(false)
   const [catErr, setCatErr] = useState(false)
@@ -119,9 +119,9 @@ export default function ViewNoteComp() {
     { value: "Others", label: "Others" },
   ]
   return (
-    <div className="bg-purple-300/40 min-h-screen">
+    <div className="bg-purple-300/40 min-h-screen pb-4">
       <Header />
-      <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 ">
+      <div className="w-full md:w-10/12 lg:w-8/12 mx-auto h-[85vh] flex flex-col my-4 px-4 md:px-6">
 
         <div className="flex items-center justify-between">
           <h2 className="font-erode mb-4 font-semibold text-xl md:text-2xl lg:text-3xl ">View Note</h2>
@@ -166,7 +166,7 @@ export default function ViewNoteComp() {
                 </p>
               }
             </div>
-            {catErr && <p className="font-erode font-medium text-xs text-red-500">Select a category</p>}
+            {catErr && <p className="font-erode font-medium text-xs text-red-500">add tag</p>}
           </div>
         </div>
         <div className="flex flex-col mb-1 flex-1">
