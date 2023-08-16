@@ -1,6 +1,7 @@
 
 import { Link, useLocation } from 'react-router-dom'
 import { IconAddOutline, IconBoxArchive, IconHome } from '../IconComponent';
+import { ADDNOTE, HOME } from '../../const/urlConst';
 
 export default function Header() {
 
@@ -15,10 +16,11 @@ export default function Header() {
           <IconBoxArchive className="text-3xl lg:text-4xl" />
         </div>
         <div className=" p-[1px] rounded-md">
-          {location.pathname !== '/' ? (
-            <div className='flex space-x-2 md:space-x-3 lg:space-x-4'>
 
-              <Link to='/'>
+          <div className='flex space-x-2 md:space-x-3 lg:space-x-4'>
+
+            {location.pathname !== `${HOME}` &&
+              <Link to={HOME}>
                 <div className='gradient-bg p-[1px] rounded-md'>
                   <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md  ">
                     <p className='font-erode font-semibold text-based md:text-xl flex items-center gap-x-2'>
@@ -27,31 +29,20 @@ export default function Header() {
                   </div>
                 </div>
               </Link>
+            }
+            {location.pathname !== `${ADDNOTE}` &&
+              <Link to={ADDNOTE}>
+                <div className='gradient-bg p-[1px] rounded-md'>
+                  <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
+                    <p className="font-erode font-semibold text-based md:text-xl flex items-center gap-x-2">
+                      <IconAddOutline />
+                      <span className='sm-hide'> New Note</span></p>
+                  </div>
+                </div>
+              </Link>
+            }
+          </div>
 
-              <Link to='/add-note'>
-                <div className='gradient-bg p-[1px] rounded-md'>
-                  <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                    <p className="font-erode font-semibold text-based md:text-xl flex items-center gap-x-2">
-                      <IconAddOutline />
-                      <span className='sm-hide'> New Note</span></p>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          ) : (
-            <div className='gradient-bg p-[1px] rounded-md'>
-              <Link to='/add-note'>
-                <div className='gradient-bg p-[1px] rounded-md'>
-                  <div className="flex gap-x-2 items-center bg-purple-300 p-2 rounded-md">
-                    <p className="font-erode font-semibold text-based md:text-xl flex items-center gap-x-2">
-                      <IconAddOutline />
-                      <span className='sm-hide'> New Note</span></p>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          )
-          }
         </div>
       </div>
     </div>

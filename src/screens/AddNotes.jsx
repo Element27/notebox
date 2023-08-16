@@ -6,6 +6,7 @@ import Header from "../components/layout/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { options } from "../const/selectUtils";
+import { HOME } from "../const/urlConst";
 
 
 export default function AddNotes() {
@@ -64,14 +65,6 @@ export default function AddNotes() {
   }
 
 
-  // const options = [
-  //   { value: "Work", label: "Work" },
-  //   { value: "Class", label: "Class" },
-  //   { value: "Study", label: "Study" },
-  //   { value: "Leisure", label: "Leisure" },
-  //   { value: "Others", label: "Others" },
-  // ]
-
   return (
     <div className="bg-purple-300/40 min-h-screen pb-4">
       <Header />
@@ -123,7 +116,7 @@ export default function AddNotes() {
           <button
             onClick={handleSubmit}
             className="font-erode px-8 py-2 bg-indigo-400 rounded-md">Add</button>
-          <Link to='/'
+          <Link to={HOME}
             className="font-erode px-8 py-2 border border-indigo-400 rounded-md">Cancel</Link>
         </div>
       </div>
